@@ -2,6 +2,7 @@
 
 const program = require('commander');
 const colors = require('colors');
+const pad = require('pad');
 
 program
     .version('0.0.1', '-v, --version')
@@ -15,10 +16,10 @@ program
         console.log('Weapon Command');
         console.log('------------------');
 
-        console.log('Weapon name :', colors.red(type));
-        console.log('Ammo amount :', colors.green(args.ammo));
-        console.log('Edition type :', colors.cyan(args.edition));
-        console.log('isSafe_mode :', colors.yellow(args.safe_mode));
+        console.log(pad('Weapon name', 15),  ':', pad(20, colors.red(type)));
+        console.log(pad('Ammo amount', 15),  ':', pad(20, colors.green(args.ammo)));
+        console.log(pad('Edition type', 15), ':', pad(20, colors.cyan(args.edition)));
+        console.log(pad('isSafe_mode', 15),  ':', pad(20, colors.yellow(args.safe_mode)));
     });
 
 program.parse(process.argv);
@@ -32,5 +33,14 @@ $ cli-app weapon AK-47 -a -e --safe_mode
 
 $ cli-app weapon AK-47 -a 210 -e Gold
 $ cli-app weapon AK-47 -a 210 -e Gold --safe_mode
+
+
+
+    Weapon Command
+    ------------------
+    Weapon name     :        AK-47
+    Ammo amount     :          210
+    Edition type    :         Gold
+    isSafe_mode     :         true
 
 */
