@@ -4,6 +4,9 @@ const program = require('commander');
 const colors = require('colors');
 const pad = require('pad');
 const inquirer = require('inquirer');
+const writeJson = require('write-json');
+const read = require('read-data');
+
 
 program
     .version('0.0.1', '-v, --version')
@@ -153,6 +156,34 @@ $ cli-app login
     ------------------
     ID              :     test1234
     Password        :     pass1234
+
+*/
+
+
+program
+    .command('json [fisrt] [second]')
+    .action((fisrt, second, args) => {
+
+        if (!fisrt || !second) throw 'invalid params';
+
+        console.log('Login Command');
+        console.log('------------------');
+
+        writeJson.sync('bin.json', { fisrt : fisrt, second : second });
+        
+        console.log(read.sync('bin.json'));
+
+    });
+
+
+/*
+
+$ cli-app json --help
+
+$ cli-app json ABCD EFGH
+
+
+    { fisrt: 'ABCD', second: 'EFGH' } // bin.json
 
 */
 
