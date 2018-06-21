@@ -97,4 +97,64 @@ $ cli-app weapon_2
 
 
 
+program
+    .command('list')
+    .alias('ls')
+    .description('List coffee menu')
+    .action(() => {
+        console.log('test list');
+        console.log('test list');
+        console.log('test list');
+        console.log('test list');
+    });
+
+/*
+
+$ cli-app list --help
+
+$ cli-app list
+
+*/
+
+
+program
+    .command('login')
+    .alias('o')
+    .description('login_command_description')
+    .action(() => {
+
+        let questions = [
+            { type: 'input', name: 'id', message: colors.red('Please enter your ID.') },
+            { type: 'password', name: 'pass', message: colors.red('Please enter your password.') },
+        ];
+
+        inquirer
+            .prompt(questions)
+            .then(answers => {
+                console.log('Login Command');
+                console.log('------------------');
+
+                console.log(pad('ID', 15),  ':', pad(20, colors.red(answers.id)));
+                console.log(pad('Password', 15),  ':', pad(20, colors.green(answers.pass)));
+            });
+    });
+
+/*
+
+$ cli-app login --help
+
+$ cli-app login
+
+
+
+    ? Please enter your ID. test1234
+    ? Please enter your password. [hidden]
+    Login Command
+    ------------------
+    ID              :     test1234
+    Password        :     pass1234
+
+*/
+
+
 program.parse(process.argv);
