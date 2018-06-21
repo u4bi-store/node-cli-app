@@ -3,6 +3,7 @@
 const program = require('commander');
 const colors = require('colors');
 const pad = require('pad');
+const inquirer = require('inquirer');
 
 program
     .version('0.0.1', '-v, --version')
@@ -22,7 +23,6 @@ program
         console.log(pad('isSafe_mode', 15),  ':', pad(20, colors.yellow(args.safe_mode)));
     });
 
-program.parse(process.argv);
 
 /*
 
@@ -44,3 +44,57 @@ $ cli-app weapon AK-47 -a 210 -e Gold --safe_mode
     isSafe_mode     :         true
 
 */
+
+
+
+program
+    .command('weapon_2')
+    .alias('o')
+    .description('weapon_2_command_description')
+    .action(() => {
+
+        let questions = [
+            { type: 'list', name: 'type', message: colors.red('Please select a Weapon.'), choices: [ 'AK-47', 'M4A1', 'K2' ] },
+            { type: 'list', name: 'ammo', message: colors.red('Please select a Ammo'), choices: [ '180', '210', '300' ] },
+            { type: 'list', name: 'edition', message: colors.red('Please select a Edition'), choices: ['Basic', 'Silver', 'Gold'] },
+            { type: 'confirm', name: 'safe_mode', message: colors.red('Do you want to enable safe mode?'), default: false }
+        ];
+
+        inquirer
+            .prompt(questions)
+            .then(answers => {
+                console.log('Weapon_2 Command');
+                console.log('------------------');
+
+                console.log(pad('Weapon name', 15),  ':', pad(20, colors.red(answers.type)));
+                console.log(pad('Ammo amount', 15),  ':', pad(20, colors.green(answers.ammo)));
+                console.log(pad('Edition type', 15), ':', pad(20, colors.cyan(answers.edition)));
+                console.log(pad('isSafe_mode', 15),  ':', pad(20, colors.yellow(answers.safe_mode)));
+            });
+    });
+
+
+/*
+
+$ cli-app weapon_2 --help
+
+$ cli-app weapon_2
+
+
+
+    ? Please select a Weapon. M4A1
+    ? Please select a Ammo 210
+    ? Please select a Edition Silver
+    ? Do you want to enable safe mode? No
+    Weapon_2 Command
+    ------------------
+    Weapon name     :         M4A1
+    Ammo amount     :          210
+    Edition type    :       Silver
+    isSafe_mode     :        false
+
+*/
+
+
+
+program.parse(process.argv);
